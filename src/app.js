@@ -7,8 +7,7 @@ import './styles/styles.scss';
 import BaseballApp from './components/BaseballApp';
 
 const store = configureStore();
-
-const state = store.getState();
+// const state = store.getState();
 
 const jsx = (
   <Provider store={store}>
