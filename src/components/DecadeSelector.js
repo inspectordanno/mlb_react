@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { filterByDecade } from '../actions/filter';
+import { setDecadeFilter } from '../actions/filter';
 import Select from 'react-select';
 
 const DecadeSelector = (props) => {
@@ -8,7 +8,7 @@ const DecadeSelector = (props) => {
   const dispatch = useDispatch();
 
   const dispatchDecade = (decade = { value }) => {
-      dispatch(filterByDecade(decade));
+      dispatch(setDecadeFilter(decade));
   }
 
   const decades = [
