@@ -7,8 +7,9 @@ const DecadeSelector = (props) => {
 
   const dispatch = useDispatch();
 
-  const dispatchDecade = (decade = { value }) => {
-      dispatch(setDecadeFilter(decade));
+  const dispatchDecade = (decade) => {
+      dispatch(setDecadeFilter(decade.value));
+      console.log(decade.value);
   }
 
   const decades = [
