@@ -9,7 +9,6 @@ const DecadeSelector = (props) => {
 
   const dispatchDecade = (decade) => {
       dispatch(setDecadeFilter(decade.value));
-      console.log(decade.value);
   }
 
   const decades = [

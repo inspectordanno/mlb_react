@@ -7,7 +7,7 @@ import PlayerInfo from './PlayerInfo';
 
 const BaseballApp = () => {
   const decade = useSelector(state => state.filtersReducer.decade);
-  console.log('hola', decade);
+  console.log(decade);
 
   return (
     <div>
