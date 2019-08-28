@@ -24,10 +24,6 @@ const DecadeSelector = (props) => {
     '2000s'
   ];
 
-  const logValue = ({ value }) => {
-    console.log(value);
-  }
-
   return (
     <Select 
       options={decades.map(decade => {

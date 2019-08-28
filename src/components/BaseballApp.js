@@ -13,13 +13,12 @@ const BaseballApp = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    d3.csv('../data/baseball.csv').then(data => {
+    d3.csv('./data/baseball.csv').then(data => {
       dispatch(readData(data));
     });
   }, []);
 
-  const decade = useSelector(state => state.filtersReducer.decade);
-
+  const decade = useSelector(state => state.decade);
 
   return (
     <div>

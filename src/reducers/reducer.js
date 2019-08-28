@@ -1,10 +1,10 @@
-const filtersReducerDefaultState = {
+const reducerDefaultState = {
   decade: null,
   data: null,
 
 }
 
-export default (state = filtersReducerDefaultState, action) => {
+export default (state = reducerDefaultState, action) => {
   switch (action.type) {
     case 'READ_DATA':
       return {
