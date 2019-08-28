@@ -3,24 +3,6 @@ import { fieldDictionary, colorDictionary } from './dictionaries';
 import { useSelector } from 'react-redux';
 import * as d3 from 'd3';
 
-// class BaseballField extends Component {
-//   constructor() {
-//     this.state = {
-
-//     };
-//   }
-
-//   componentDidMount() {
-//     this.data = useSelector(state => console.log(state.data));
-//   }
-
-//   render() {
-//     // const {fieldDictionary} = this.props;
-//     this.data &&
-
-//   }
-// }
-
 const BaseballField = ({ width, height, decade }) => {
 
   //selecting only the players with the decade passed from props
@@ -81,15 +63,13 @@ const BaseballField = ({ width, height, decade }) => {
     }, []);
 
     return (
-      data
-      ? <div
+      <div
           className='svg_container'
           width={width}
           height={height}
           ref={d3Container}
         >
-        </div>
-      : null
+      </div>
     );
   }
 
