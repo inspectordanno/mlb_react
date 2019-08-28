@@ -1,5 +1,5 @@
-export const readDataonInit = (data) => ({
-  type: 'READ_DATA_ON_INIT',
+export const readData = (data) => ({
+  type: 'READ_DATA',
   data
 });
 

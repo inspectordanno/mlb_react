@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import * as d3 from 'd3';
 import { useSelector, useDispatch } from 'react-redux';
-import { readDataOnInit } from '../actions';
+import { readData } from '../actions/actions';
 import DecadeSelector from './DecadeSelector';
 import Comparison from './Comparison';
 import BaseballField from './BaseballField';
@@ -10,20 +10,23 @@ import parseCSV from './parseCsv';
 
 const BaseballApp = () => {
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    const dispatch = useDispatch();
     d3.csv('../data/baseball.csv').then(data => {
-      dispatch(readDataOnInit(data));
+      dispatch(readData(data));
     });
-  }, [])
+  }, []);
 
   const decade = useSelector(state => state.filtersReducer.decade);
+
+
   return (
     <div>
       <DecadeSelector />
-      <BaseballField />
+      <BaseballField decade={decade} />
       <PlayerInfo />
-      <Comparison />
+      <Comparison  />
     </div>
   );
 };

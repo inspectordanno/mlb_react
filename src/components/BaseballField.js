@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import {fieldDictionary, colorDictionary } from './dictionaries';
+import { fieldDictionary, colorDictionary } from './dictionaries';
 import * as d3 from 'd3';
 
 const BaseballField = ({ width, height, data }) => {
