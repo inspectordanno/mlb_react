@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import * as d3 from 'd3';
-import { useSelector, useDispatch, useCallback } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { readData } from '../actions/actions';
 import DecadeSelector from './DecadeSelector';
 import Comparison from './Comparison';
 import BaseballField from './BaseballField';
 import PlayerInfo from './PlayerInfo';
-import parseCSV from './parseCsv';
 
 const BaseballApp = () => {
 
@@ -23,7 +22,7 @@ const BaseballApp = () => {
   const decade = useSelector(state => state.decade);
   const data = useSelector(state => state.data)
 
-  return data
+  return data //only return when data is sent to store
     ? (
       <div>
         <DecadeSelector />

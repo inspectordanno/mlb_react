@@ -1,4 +1,4 @@
-import React, { Component, useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { fieldDictionary, colorDictionary } from './dictionaries';
 import { useSelector } from 'react-redux';
 import * as d3 from 'd3';
@@ -7,7 +7,6 @@ const BaseballField = ({ width, height, decade }) => {
 
   //selecting only the players with the decade passed from props
   const data = useSelector(state => state.data.filter(d => d.Year === decade));
-  console.log(data);
 
   const d3Container = useRef(null);
   const [positionDictionary, setPositionDictionary] = useState(new Map()); // the position dictionary is a state
