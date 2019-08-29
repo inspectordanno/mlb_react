@@ -1,4 +1,4 @@
-import React, { Component, useRef, useEffect } from 'react';
+import React, { Component, useRef, useEffect, useState } from 'react';
 import { fieldDictionary, colorDictionary } from './dictionaries';
 import { useSelector } from 'react-redux';
 import * as d3 from 'd3';
@@ -6,25 +6,27 @@ import * as d3 from 'd3';
 const BaseballField = ({ width, height, decade }) => {
 
   //selecting only the players with the decade passed from props
-  const data = useSelector(state => console.log(state.data));
+  const data = useSelector(state => state.data.filter(d => d.Year === decade));
+  console.log(data);
 
   const d3Container = useRef(null);
+  const [positionDictionary, setPositionDictionary] = useState(new Map()); // the position dictionary is a state
 
-    useEffect(() => {
-      if (d3Container.current) {
-        d3.xml('./diamond_clean_updated.svg').then(xml => {
-          d3.select(d3Container.current).append(() => xml.documentElement) //https://stackoverflow.com/questions/25516078/d3-create-object-without-appending
-            .attr('class', 'baseball_svg');
+  useEffect(() => {
+    if (d3Container.current) {
+      const appendSvg = async () => {
+        const xml = await d3.xml('./diamond_clean_updated.svg');
+        d3.select(d3Container.current).append(() => xml.documentElement) //https://stackoverflow.com/questions/25516078/d3-create-object-without-appending
+          .attr('class', 'baseball_svg');
 
-            const positionSelect = (position) => {
-              return {
-                x: d3.select(position).attr("x"),
-                y: d3.select(position).attr("y")
-              };
+          const positionSelect = (position) => {
+            return {
+              x: d3.select(position).attr("x"),
+              y: d3.select(position).attr("y")
             };
+          };
           
-            const positionDictionary = new Map();
-          
+          setPositionDictionary(
             positionDictionary.set('First Base', positionSelect('#rect2801'))
               .set('Second Base', positionSelect('#rect2803'))
               .set('Shortstop', positionSelect('#shortstop'))
@@ -33,8 +35,15 @@ const BaseballField = ({ width, height, decade }) => {
               .set('Left Field', positionSelect('#left'))
               .set('Center Field', positionSelect('#center'))
               .set('Right Field', positionSelect('#right'))
-              .set('Pitcher', positionSelect('#rect2805'));
+              .set('Pitcher', positionSelect('#rect2805'))
+          );
+      }
+      appendSvg();
+    }
+  }, []);
 
+    useEffect(() => {
+      if (d3Container.current && data) {
             //enter update exit
             const players = d3.select('#layer1')
               .selectAll('.player')
@@ -43,9 +52,10 @@ const BaseballField = ({ width, height, decade }) => {
             players.enter()
               .append('circle')
               .attr('class', 'player')
+              .each(d => console.log(positionDictionary.get(d.Position)))
               .attr('fill', d => colorDictionary.get(d.Year))
-              .attr('cx', d => positionDictionary(d.Position).x)
-              .attr('cy', d => positionDictionary(d.Position).y)
+              .attr('cx', d => positionDictionary.get(d.Position).x)
+              .attr('cy', d => positionDictionary.get(d.Position).y)
               .attr('r', 0)
               .transition()
               .duration(500)
@@ -58,7 +68,6 @@ const BaseballField = ({ width, height, decade }) => {
               .transition()
               .attr('opacity', 0)
               .remove();        
-        });
       }
     }, [data]);
 
@@ -72,7 +81,5 @@ const BaseballField = ({ width, height, decade }) => {
       </div>
     );
   }
-
-
 
 export default BaseballField;

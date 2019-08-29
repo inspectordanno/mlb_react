@@ -21,15 +21,18 @@ const BaseballApp = () => {
   }, []);
 
   const decade = useSelector(state => state.decade);
+  const data = useSelector(state => state.data)
 
-  return (
-    <div>
-      <DecadeSelector />
-      <BaseballField decade={decade} />
-      <PlayerInfo />
-      <Comparison  />
-    </div>
-  );
+  return data
+    ? (
+      <div>
+        <DecadeSelector />
+        <BaseballField decade={decade} />
+        <PlayerInfo />
+        <Comparison  />
+      </div>
+    )
+    : null
 };
 
 export default BaseballApp;
