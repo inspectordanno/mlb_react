@@ -60,7 +60,7 @@ const BaseballField = ({ width, height, decade }) => {
               .remove();        
         });
       }
-    }, []);
+    }, [data]);
 
     return (
       <div
