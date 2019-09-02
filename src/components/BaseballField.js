@@ -1,9 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { fieldDictionary, colorDictionary } from './dictionaries';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import * as d3 from 'd3';
+import { fieldDictionary, colorDictionary } from './dictionaries';
+import { setActivePlayer } from '../actions/actions';
 
 const BaseballField = ({ width, height, decade }) => {
+
+  const dispatch = useDispatch();
 
   //selecting only the players with the decade passed from props
   const data = useSelector(state => state.data.filter(d => d.Year === decade));
@@ -42,6 +45,7 @@ const BaseballField = ({ width, height, decade }) => {
   }, []);
 
     useEffect(() => {
+
       if (d3Container.current && data) {
             //enter update exit
             const players = d3.select('#layer1')
@@ -51,7 +55,6 @@ const BaseballField = ({ width, height, decade }) => {
             players.enter()
               .append('circle')
               .attr('class', 'player')
-              .each(d => console.log(positionDictionary.get(d.Position)))
               .attr('fill', d => colorDictionary.get(d.Year))
               .attr('cx', d => positionDictionary.get(d.Position).x)
               .attr('cy', d => positionDictionary.get(d.Position).y)
@@ -66,7 +69,10 @@ const BaseballField = ({ width, height, decade }) => {
             players.exit()
               .transition()
               .attr('opacity', 0)
-              .remove();        
+              .remove();
+
+            d3.selectAll('circle')
+              .on('mousedown', d => dispatch(setActivePlayer(d)));
       }
     }, [data]);
 

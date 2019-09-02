@@ -1,7 +1,7 @@
 const reducerDefaultState = {
   decade: null,
   data: null,
-
+  activePlayer: null
 }
 
 export default (state = reducerDefaultState, action) => {
@@ -16,6 +16,11 @@ export default (state = reducerDefaultState, action) => {
         ...state,
         decade: action.decade
       };
+    case 'SET_ACTIVE_PLAYER':
+      return {
+        ...state,
+        activePlayer: action.activePlayer
+      }
     default:
       return state;
   }

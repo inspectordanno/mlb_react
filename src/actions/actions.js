@@ -8,4 +8,9 @@ export const setDecadeFilter = (decade) => ({
   decade
 });
 
+export const setActivePlayer = (activePlayer) => ({
+  type: 'SET_ACTIVE_PLAYER',
+  activePlayer
+});
+
 
